@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Georgslauf</string>
+    <string name="title_section1">Willkommen</string>
+    <string name="title_section2">QR Scanner</string>
+    <string name="title_section3">Karte</string>
+    <string name="title_section4">Impressum</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="aktion_2">Aktion 2</string>
+    <string name="aktion_1">Aktion 1</string>
+    <string name="scan_ergebnis_standardtext">Und Knopf 2 macht das</string>
+    <string name="impressum">
+        Stamm-Pater-Rupert-Mayer\n
+        info@stamm-prm.de\n
+        Kaiserplatz 1, 80803 München\n
+        \n
+        Sonst noch was?\n
+        </string>
+    <string name="kleingedrucktes">Kleingedrucktes
+        und so. Wenn ihr euch weh tut seid ihr selber schuld, und wenn ihr das mit
+        Hilfe der app schafft seid ihr zusätzlich doof. Wenn jemand stirbt ist das jetzt
+        blöd, hat aber nix mit der app zu tun.</string>
+    <string name="willkommens_nachricht">
+        Willkommen zur Georgslauf app von PRM\nHier könnt ihr die Posten bewerten und habt eine Karte der Umgebung.\n
+    </string>
+
+</resources>
