@@ -2,6 +2,7 @@ package de.stamm_prm.georgslauf;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -27,7 +29,7 @@ import com.google.zxing.integration.android.IntentResult;
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-    public static final Operator operator=new Operator();
+    public static Operator operator=null;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -49,11 +51,34 @@ public class MainActivity extends ActionBarActivity
     TextView qrTextView;
     Button qrButton1, qrButton2;
 
+    public static Context context;
+
     Runnable check = new Runnable() {
         @Override
         public void run() {
-            if(sendToast){
-                sendToast=false;
+            if (sendToast) {
+                //if(operator.isNew()) {
+                //    LinearLayout dummyView = (LinearLayout) LayoutInflater.from(context).inflate(R.layout
+                //                    .info_window_dummy,
+                //            null);
+                //    dummyView.setOrientation(LinearLayout.VERTICAL);
+                //    LinearLayout newView;
+                //    TextView dummyTitle = new TextView(context);
+                //    ImageView dummyImage = new ImageView(context);
+                //    for (int i = 0; i < operator.IDs.length; i++) {
+                //        Log.e("Debug", String.valueOf(i)+" laden...");
+                //        newView = (LinearLayout) LayoutInflater.from(context).inflate(R.layout
+                //                        .info_window_dummy,
+                //                null);
+                //        newView.setOrientation(LinearLayout.VERTICAL);
+                //        dummyTitle.setText("Posten " + String.valueOf(i + 1));
+                //        dummyImage.setImageResource(operator.IDs[i]);
+                //        newView.addView(dummyTitle);
+                //        newView.addView(dummyImage);
+                //        operator.infoWindows[i] = newView;
+                //    }
+                //
+                //}
                 Toast.makeText(getBaseContext(), "Geladen", Toast.LENGTH_SHORT).show();
             }else toaster.postDelayed(check, 30);
         }
@@ -62,12 +87,23 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         toaster=new Handler();
-        toaster.post(check);
-        if(operator.getState()!= Thread.State.TERMINATED)
+        if(operator==null) {
+            operator = new Operator();
             operator.start();
+        }else if (operator.getState() != Thread.State.TERMINATED) {
+            operator.start();
+            operator.newOp=false;
+        }
+        Operator.context=getApplicationContext();
+
+        //Debug*************
+        toaster.post(check);
+        //******************
+
         setContentView(R.layout.activity_main);
+
+        operator.mapView=(MapView)findViewById(R.id.map);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -206,4 +242,5 @@ public class MainActivity extends ActionBarActivity
         super.onDestroy();
         operator.interrupt();
     }
+
 }

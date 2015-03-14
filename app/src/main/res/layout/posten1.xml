@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/posten1"
+               android:src="@drawable/posten1"
+               tools:ignore="ContentDescription"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Posten 1"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@android:color/holo_blue_light"
+        android:background="@drawable/bubble_mask_1"
+        android:layout_alignBottom="@+id/posten1"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="false"
+        android:layout_alignRight="@+id/posten1"
+        android:layout_alignLeft="@+id/posten1"
+        android:gravity="center"/>
+</RelativeLayout>

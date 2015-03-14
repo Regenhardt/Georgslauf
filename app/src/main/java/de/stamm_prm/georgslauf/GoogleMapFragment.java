@@ -23,11 +23,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 /**
  * Created by Marlon on 10.02.2015.
  */
-public class GoogleMapFragment extends Fragment {
+public class GoogleMapFragment extends Fragment implements GoogleMap.InfoWindowAdapter{
 
     static LatLng[] postenArray;
 
-    private GoogleMap googleMap=null;
+    public GoogleMap googleMap=null;
     MapView mapView;
     LatLngBounds bounds;
     final int padding = 50;
@@ -38,48 +38,20 @@ public class GoogleMapFragment extends Fragment {
     private Runnable postenLaden = new Runnable() {
         @Override
         public void run() {
-
-            /* Jetzt durch operator
-             postenArray[0]=new LatLng(48.161347, 11.580134);
-             postenArray[1]=new LatLng(48.161112, 11.580046);
-             postenArray[2]=new LatLng(48.161510, 11.579614);
-             postenArray[3]=new LatLng(48.161824, 11.579520);
-             postenArray[4]=new LatLng(48.161851, 11.579997);
-             postenArray[5]=new LatLng(48.161871, 11.580327);
-             postenArray[6]=new LatLng(48.161833, 11.580971);
-             postenArray[7]=new LatLng(48.162293, 11.581266);
-             postenArray[8]=new LatLng(48.162538, 11.582555);
-             postenArray[9]=new LatLng(48.162189, 11.582868);
-            postenArray[10]=new LatLng(48.161925, 11.582158);
-            postenArray[11]=new LatLng(48.161522, 11.581855);
-            postenArray[12]=new LatLng(48.161220, 11.580699);
-            postenArray[13]=new LatLng(48.161150, 11.580412);
-            */
             postenArray=MainActivity.operator.getPosten();
             markers=new Marker[postenArray.length];
-
-/* Jetzt durch operator
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            for (int m =0;m<postenArray.length();m++) {
-                builder.include(postenArray[m]);
-            }
-            final LatLngBounds bounds = builder.build();
-            */
             bounds=MainActivity.operator.getInitialMapBounds();
 
             //Marker setzen
                 //Zentrale
             markers[0]=googleMap.addMarker(new MarkerOptions().position(postenArray[0]).title
-                    ("" + postenArray.length)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    ("Siegesfeier")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
+                    ));
                 //Posten
-            for(int i = 1; i<14; i++)
-                markers[i]=googleMap.addMarker(new MarkerOptions().position(postenArray[i]).title
-                        ("Posten " +
-                                "" + i).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory
+            for(int i = 1; i<postenArray.length; i++)
+                markers[i]=googleMap.addMarker(new MarkerOptions().position(postenArray[i]).title("Posten " + i).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory
                         .HUE_GREEN)));
-
-
 
             //Anfangsposition initialisieren
             try {
@@ -111,20 +83,17 @@ public class GoogleMapFragment extends Fragment {
         mapView=(MapView) retval.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         if(mapView!=null){
-            googleMap=mapView.getMap();
-
             MapsInitializer.initialize(getActivity());
 
+            googleMap=mapView.getMap();
             //Karte Einstellen
             googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
             googleMap.setMyLocationEnabled(true);
             googleMap.setIndoorEnabled(true);
             googleMap.setBuildingsEnabled(true);
             googleMap.getUiSettings().setZoomControlsEnabled(true);
+            googleMap.setInfoWindowAdapter(this);
 
-            //LatLngBounds.Builder builder = new LatLngBounds.Builder();
-
-            //TODO Koordinaten der Posten, später von Website laden
             handler.post(postenLaden);
 
 
@@ -186,9 +155,6 @@ public class GoogleMapFragment extends Fragment {
 
     }
 
-    public void setMarkers(Marker[] markers) {
-        this.markers = markers;
-    }
 
 
     @Override
@@ -216,5 +182,15 @@ public class GoogleMapFragment extends Fragment {
         ((MainActivity)activity).onSectionAttached(3);
     }
 
+    @Override
+    public View getInfoWindow(Marker marker) {
+        return getActivity().getLayoutInflater().inflate(R.layout.posten1, null);
+    }
+/*
 
+ */
+    @Override
+    public View getInfoContents(Marker marker) {
+        return null;
+    }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Posten 1"
+    android:textColor="@android:color/holo_blue_light"
+    android:textStyle="bold"
+    android:drawableBottom="@drawable/posten1"
+    android:background="@drawable/bubble_mask"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"/>
